@@ -1,0 +1,13 @@
+<launch>
+  <!-- Load URDF model in Gazebo -->
+  <arg name="urdf_file" default="$(find urdf)/my_robot.urdf"/>
+  <arg name="model" default="my_robot"/>
+
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg urdf_file)" />
+
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+        args="-urdf -param robot_description -model $(arg model)"/>
+  
+  <!-- Launch Gviz -->
+  <node name="rviz" pkg="rviz" type="rviz" output="screen"/>
+</launch>
